@@ -66,7 +66,6 @@ globalTunnel.initialize = function(conf) {
   if (typeof conf === 'string') {
     conf = tryParse(conf);
   }
-
   if (_.isEmpty(conf)) {
     conf = tryParse(process.env.http_proxy);
     if (!conf) {
@@ -122,6 +121,9 @@ globalTunnel.initialize = function(conf) {
 
     http.request = globalTunnel._defaultedAgentRequest.bind(http, 'http');
     https.request = globalTunnel._defaultedAgentRequest.bind(https, 'https');
+
+    http.proxyForHosts = conf.proxyForHosts;
+    https.proxyForHosts = conf.proxyForHosts;
 
     globalTunnel.isProxying = true;
   } catch (e) {
@@ -208,6 +210,18 @@ globalTunnel._defaultedAgentRequest = function(protocol, options, callback) {
   // our global agent.
   if (!options.agent && options.agent !== false) {
     options.agent = httpOrHttps.globalAgent;
+  }
+
+  if(this.proxyForHosts && !_.isEmpty(this.proxyForHosts)) {
+    _.forEach(this.proxyForHosts, function(host) {
+      if(/options.host/.test(host)) {
+        if(options.protocol === 'https') {
+          options.port = 443;
+        } else {
+          options.port = 80;
+        }
+      }
+    });
   }
 
   return ORIGINALS[protocol].request.call(httpOrHttps, options, callback);
