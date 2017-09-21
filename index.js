@@ -68,11 +68,13 @@ globalTunnel.initialize = function(conf) {
   }
 
   if (_.isEmpty(conf)) {
-    conf = tryParse(process.env['http_proxy']);
+    conf = tryParse(process.env.http_proxy);
     if (!conf) {
       globalTunnel.isProxying = false;
       return;
     }
+  } else if(!conf.host) {
+    _.assign(conf, tryParse(process.env.http_proxy));
   }
   conf = _.clone(conf);
 
