@@ -214,8 +214,8 @@ globalTunnel._defaultedAgentRequest = function(protocol, options, callback) {
 
   if(this.proxyForHosts && !_.isEmpty(this.proxyForHosts)) {
     _.forEach(this.proxyForHosts, function(host) {
-      if(/options.host/.test(host)) {
-        if(options.protocol === 'https') {
+      if(options.host === host) {
+        if(options.schema === 'https') {
           options.port = 443;
         } else {
           options.port = 80;
@@ -223,6 +223,7 @@ globalTunnel._defaultedAgentRequest = function(protocol, options, callback) {
       }
     });
   }
+
 
   return ORIGINALS[protocol].request.call(httpOrHttps, options, callback);
 };
