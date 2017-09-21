@@ -1,18 +1,18 @@
 {
   "name": "global-tunnel",
-  "version": "1.2.0",
+  "version": "1.2.3",
   "description": "Global HTTP & HTTPS tunneling",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/goinstant/global-tunnel.git"
+    "url": "https://github.com/payapi/global-tunnel.git"
   },
   "engines": {
     "node": "0.10.x"
   },
   "dependencies": {
     "lodash": "1.3.1",
-    "tunnel": "0.0.2"
+    "tunnel": "0.0.5"
   },
   "devDependencies": {
     "mocha": "1.16.2",
@@ -29,6 +29,6 @@
     "tunnel",
     "global"
   ],
-  "author": "GoInstant Inc., a salesforce.com company",
+  "author": "PayApi Ltd",
   "license": "BSD-3-Clause"
 }
