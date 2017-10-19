@@ -215,10 +215,10 @@ globalTunnel._defaultedAgentRequest = function(protocol, options, callback) {
   if(this.proxyForHosts && !_.isEmpty(this.proxyForHosts)) {
     _.forEach(this.proxyForHosts, function(host) {
       if(options.host === host) {
-        if(options.schema === 'https') {
-          options.port = 443;
-        } else {
+        if(options.schema === 'http') {
           options.port = 80;
+        } else {
+          options.port = 443;
         }
       }
     });
